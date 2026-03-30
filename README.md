@@ -1,172 +1,259 @@
-# Relatório do Projeto — Professor+
+# Professor+ (MVP Full Stack)
 
-## 1. Resumo Executivo
+Plataforma educacional para apoiar professores da rede pública com planejamento pedagógico, criação de atividades, acompanhamento de aprendizagem e gestão de engajamento dos estudantes.
 
-O **Professor+** é uma plataforma tecnológica desenvolvida com o objetivo de auxiliar professores e professoras da rede pública de ensino na criação de conteúdos pedagógicos, no planejamento de aulas e no engajamento dos alunos. A solução busca reduzir dificuldades enfrentadas no cotidiano escolar, como falta de tempo para preparar atividades, escassez de recursos tecnológicos e necessidade de tornar as aulas mais interativas e acessíveis.
+## Sumário
 
-A proposta reúne, em um único ambiente, ferramentas para geração de atividades, organização do calendário escolar, compartilhamento de materiais didáticos e aplicação de quizzes interativos para os alunos. Além disso, considera a realidade do ensino público ao incluir recursos de acessibilidade e uso simplificado em dispositivos móveis.
-
-O impacto esperado é melhorar a produtividade docente, ampliar a participação dos alunos no processo de aprendizagem e promover uma educação mais colaborativa, criativa e inclusiva.
-
----
-
-## 2. Problema Identificado
-
-Professores e professoras do ensino público enfrentam diversos desafios no exercício da profissão. Entre os principais problemas observados estão a sobrecarga de trabalho, a dificuldade em produzir materiais didáticos de forma rápida, a necessidade de adaptar conteúdos para diferentes perfis de alunos e a limitação no acesso a ferramentas tecnológicas adequadas.
-
-Além disso, muitos estudantes apresentam baixo engajamento nas atividades escolares, especialmente quando os conteúdos não são apresentados de maneira dinâmica e atrativa. Outro fator importante é a desigualdade no acesso à internet e a dispositivos, o que dificulta a adoção de soluções puramente digitais e exige alternativas mais leves e acessíveis.
-
-Diante desse cenário, torna-se fundamental desenvolver uma solução que ofereça apoio prático aos educadores, economize tempo em tarefas repetitivas, favoreça a troca de conhecimento entre professores e promova maior interação entre docentes e alunos.
+- [Visão geral](#visão-geral)
+- [Principais funcionalidades](#principais-funcionalidades)
+- [Arquitetura e stack](#arquitetura-e-stack)
+- [Estrutura do repositório](#estrutura-do-repositório)
+- [Como executar localmente](#como-executar-localmente)
+- [Configuração de ambiente](#configuração-de-ambiente)
+- [Autenticação e perfis](#autenticação-e-perfis)
+- [API e observabilidade](#api-e-observabilidade)
+- [Qualidade e testes](#qualidade-e-testes)
+- [Roadmap](#roadmap)
+- [Documentação complementar](#documentação-complementar)
 
 ---
 
-## 3. Descrição da Solução
+## Visão geral
 
-O **Professor+** foi idealizado como uma plataforma digital de apoio pedagógico voltada para o ensino público. Seu funcionamento é baseado em módulos que atendem diretamente às necessidades dos professores e dos alunos.
+O **Professor+** foi concebido para reduzir o tempo operacional de docentes e aumentar a previsibilidade pedagógica, concentrando em um único fluxo:
 
-A solução permite que o professor cadastre disciplina, série/ano, tema e nível de dificuldade, gerando atividades como exercícios, quizzes, avaliações e planos de aula. Além disso, oferece uma área de planejamento, onde é possível organizar cronogramas, datas importantes e conteúdos por período letivo.
+1. Planejar aulas e atividades.
+2. Publicar conteúdos e quizzes.
+3. Acompanhar indicadores por turma.
+4. Ajustar estratégia com base em dados.
 
-Para os alunos, a plataforma disponibiliza uma área interativa com quizzes, desafios e materiais complementares, incentivando o aprendizado de forma mais dinâmica. Há também uma biblioteca colaborativa em que professores podem compartilhar conteúdos e reaproveitar materiais produzidos por outros educadores.
-
-Outro ponto importante é a preocupação com a inclusão digital. Por isso, a proposta prevê interface simples, conteúdos leves e possibilidade de acesso por dispositivos móveis, facilitando a utilização mesmo em contextos com internet limitada.
-
-Dessa forma, a solução atende ao problema identificado ao unir praticidade, colaboração, interatividade e acessibilidade em um único sistema.
-
----
-
-## 4. Processo de Desenvolvimento
-
-O desenvolvimento do projeto foi estruturado em etapas, com foco na identificação do problema, geração de ideias e construção de uma solução viável para o contexto do hackathon.
-
-Inicialmente, a equipe realizou um momento de **imersão e análise do problema**, buscando compreender as principais dificuldades enfrentadas por professores do ensino público. Nessa fase, foram discutidos desafios como produção de conteúdo, gestão do tempo, engajamento discente e inclusão digital.
-
-Em seguida, foi feito um **brainstorming** para levantar possíveis soluções tecnológicas. A equipe avaliou diferentes ideias e escolheu desenvolver uma plataforma integrada que pudesse oferecer apoio em várias frentes do trabalho docente.
-
-Após essa definição, ocorreu a etapa de **prototipação**, em que foram desenhadas as principais telas e funcionalidades do sistema, priorizando facilidade de uso, clareza visual e organização dos recursos. Também foram definidos os fluxos principais de navegação para professores e alunos.
-
-Na fase seguinte, foi iniciada a **implementação do MVP**, com a construção das funcionalidades essenciais para demonstrar o valor da proposta. A equipe então validou internamente a coerência da solução, ajustou detalhes e organizou a apresentação final.
-
-Esse processo permitiu transformar uma necessidade real da educação pública em uma proposta concreta, funcional e com potencial de evolução.
+O projeto está organizado como monorepo (`npm workspaces`) com frontend React e API Node.js/Express.
 
 ---
 
-## 5. Detalhes Técnicos
+## Principais funcionalidades
 
-### 5.1 Tecnologias Utilizadas
+### Gestão pedagógica
 
-As tecnologias escolhidas para o desenvolvimento do projeto foram selecionadas com base em facilidade de implementação, escalabilidade e compatibilidade com aplicações web modernas.
+- CRUD de **atividades**, **planos**, **materiais**, **quizzes**, **missões** e **eventos de calendário**.
+- Biblioteca de atividades por disciplina (`/activities/library/by-subject`).
+- Exportação simulada de atividades para formatos editáveis (`/activities/:id/export`).
 
-Exemplo de stack utilizada:
+### Engajamento e aprendizagem
 
-* **Frontend:** React
-* **Backend:** Node.js ou FastAPI
-* **Banco de Dados:** PostgreSQL ou Firebase
-* **Autenticação:** JWT / Firebase Authentication
-* **Estilização:** CSS, Tailwind CSS ou Bootstrap
-* **Hospedagem:** Vercel, Render ou Railway
-* **Protótipo visual:** Figma
+- Quizzes com tentativa e devolutiva de desempenho.
+- Missões de engajamento por turma.
+- Relatório de desempenho dos estudantes (`/reports/students-performance`).
 
-Caso vocês ainda não tenham definido tudo, podem deixar assim:
+### Plataforma e operação
 
-* Interface web responsiva para acesso em computador e celular;
-* API para gerenciamento de usuários, materiais e atividades;
-* Banco de dados para armazenar informações de professores, alunos e conteúdos;
-* Ferramentas de prototipação para definição visual da plataforma.
+- Autenticação JWT com perfis de acesso (RBAC).
+- Rotinas assíncronas para relatórios, notificações e importações.
+- Integrações externas (catálogo de provedores e sincronização manual).
+- Observabilidade com health checks, métricas e rastreabilidade por request/trace id.
 
-### 5.2 Arquitetura do Sistema
+---
 
-A arquitetura do sistema foi planejada de forma simples e modular, separando frontend, backend e banco de dados.
+## Arquitetura e stack
 
-Fluxo básico:
+### Frontend
 
-1. O usuário acessa a interface da plataforma.
-2. O frontend envia requisições para a API.
-3. O backend processa as informações e aplica as regras de negócio.
-4. Os dados são armazenados e recuperados do banco de dados.
-5. O sistema retorna as respostas para exibição ao usuário.
+- **React 18** + **Vite**
+- **Styled Components**
+- **Framer Motion**
+- Suporte a PWA (manifest + service worker)
 
-### 5.3 Diagrama Simples da Arquitetura
+### Backend
 
-Você pode colocar assim no relatório:
+- **Node.js** + **Express**
+- **JWT** para autenticação
+- Persistência com **PostgreSQL** (com fallback em memória)
+- Cache e fila com modo resiliente (incluindo suporte a Redis quando configurado)
+
+### Operação
+
+- `docker-compose` para infraestrutura local (PostgreSQL e Redis)
+- Métricas em formato Prometheus ou JSON
+
+---
+
+## Estrutura do repositório
 
 ```text
-[Professor/Aluno]
-       |
-       v
-   [Frontend Web]
-       |
-       v
-      [API]
-       |
-       v
- [Banco de Dados]
-```
-
-Se quiser um pouco mais detalhado:
-
-```text
-[Professor] ----\\
-                  > [Frontend React] <---- [Aluno]
-[Coordenador] --/         |
-                           v
-                    [Backend API]
-                           |
-         --------------------------------
-         |              |              |
-         v              v              v
-   [Usuários]     [Atividades]   [Materiais]
-                (Banco de Dados / Firebase)
+.
+├── client/                  # Aplicação web (React + Vite)
+│   ├── public/
+│   ├── src/
+│   └── test/
+├── server/                  # API (Express)
+│   ├── src/
+│   └── test/
+├── docs/                    # Materiais de apoio e proposta
+├── docker-compose.yml       # Serviços locais (Postgres/Redis)
+└── package.json             # Scripts raiz (workspaces)
 ```
 
 ---
 
-## 6. Links Úteis
+## Como executar localmente
 
-Preencham esta seção com os links reais do grupo:
+### Pré-requisitos
 
-* **Repositório do código:**
-  [Inserir link do GitHub/GitLab]
+- **Node.js 20+**
+- **npm 10+**
+- **Docker** (opcional, para PostgreSQL e Redis)
 
-* **Protótipo visual:**
-  [Inserir link do Figma/Miro]
+### 1) Instalar dependências
 
-* **Apresentação do projeto:**
-  [Inserir link do Canva/Google Slides]
+```bash
+npm install
+```
 
-* **Desenho da solução (Lucid/Draw.io):**
-  [desenho_solucao_professor_mais.drawio](sandbox:/mnt/data/desenho_solucao_professor_mais.drawio)
+### 2) Iniciar frontend e backend em paralelo
 
-* **Documentos adicionais:**
-  [Inserir link de documentação extra, se houver]
+```bash
+npm run dev
+```
+
+Serviços padrão:
+
+- Frontend: `http://localhost:5173`
+- Backend: `http://localhost:3001`
+
+### 3) (Opcional) Subir PostgreSQL local
+
+```bash
+npm run postgres:up
+```
+
+### 4) (Opcional) Subir Redis local
+
+```bash
+npm run redis:up
+```
+
+Comandos auxiliares:
+
+```bash
+npm run postgres:logs
+npm run postgres:down
+npm run redis:logs
+npm run redis:down
+```
 
 ---
 
-## 7. Aprendizados e Próximos Passos
+## Configuração de ambiente
 
-### 7.1 Aprendizados
+Crie um arquivo `.env` a partir de `.env.example` (quando aplicável) e ajuste as variáveis abaixo conforme seu cenário:
 
-Durante o desenvolvimento do projeto, a equipe aprendeu que criar soluções para a educação pública exige não apenas conhecimento técnico, mas também sensibilidade para compreender a realidade de professores e alunos. Foi possível perceber a importância de desenvolver ferramentas simples, acessíveis e realmente úteis no cotidiano escolar.
+```bash
+PORT=3001
+JWT_SECRET=change-me
+PERSISTENCE_MODE=memory # ou postgres
+DATABASE_URL=postgres://professor_plus:professor_plus@localhost:5432/professor_plus
+REDIS_URL=redis://localhost:6379
+```
 
-Outro aprendizado importante foi o valor do trabalho colaborativo, da divisão de tarefas e da prototipação rápida para validar ideias em pouco tempo. A experiência também reforçou como a tecnologia pode ser aplicada para resolver problemas sociais concretos.
-
-### 7.2 Próximos Passos
-
-Como evolução futura do **Professor+**, podem ser implementadas novas funcionalidades, como:
-
-* recomendação automática de conteúdos com base na disciplina e série;
-* relatórios de desempenho dos alunos;
-* área de comunicação entre professor e turma;
-* acessibilidade ampliada para alunos com deficiência;
-* uso offline de materiais;
-* integração com plataformas educacionais já existentes;
-* painel para gestores e coordenação pedagógica.
-
-Esses aprimoramentos podem tornar a plataforma ainda mais completa e aumentar seu impacto no ambiente escolar.
+> Observação: em `PERSISTENCE_MODE=postgres`, valide em `GET /health` se o campo `persistence` retorna `postgres`.
 
 ---
 
-## Conclusão
+## Autenticação e perfis
 
-O **Professor+** foi desenvolvido como uma proposta de apoio real aos professores e professoras do ensino público, oferecendo recursos para planejamento, produção de conteúdo, interação com alunos e colaboração entre educadores. A solução busca tornar o trabalho docente mais eficiente e o processo de aprendizagem mais envolvente e acessível.
+A autenticação ocorre via `POST /auth/login`, com retorno de token Bearer JWT.
 
-Ao responder a problemas concretos da educação pública com uma proposta tecnológica viável, o projeto demonstra potencial de contribuição social e possibilidade de expansão futura, consolidando-se como uma iniciativa relevante no contexto do hackathon.
+Usuários de demonstração:
+
+- **Professor(a):** `ana@professormais.com` / `123456`
+- **Coordenação:** `marina@professormais.com` / `123456`
+
+Perfis suportados:
+
+- `teacher`: acesso completo aos módulos pedagógicos.
+- `coordinator`: gestão de integrações, certificações e ciclos de piloto, com acesso de leitura em módulos pedagógicos.
+- `student`: acesso de leitura a materiais, quizzes e missões.
+
+---
+
+## API e observabilidade
+
+### Endpoints públicos
+
+- `GET /health`
+- `GET /health/live`
+- `GET /health/ready`
+- `GET /metrics`
+- `POST /auth/login`
+
+### Endpoints privados (Bearer Token)
+
+- `GET /me`
+- `GET /dashboard`
+- `GET /reports/students-performance?classGroup=...&minAttempts=...`
+- CRUD de recursos:
+  - `/activities`
+  - `/plans`
+  - `/materials`
+  - `/quizzes`
+  - `/missions`
+  - `/integrations`
+  - `/certifications`
+  - `/pilot-cycles`
+  - `/calendar-events`
+- Rotas adicionais:
+  - `GET /activities/library/by-subject`
+  - `GET /activities/:id/export?format=pdf|docx`
+  - `GET /integrations/providers`
+  - `POST /integrations/:id/sync`
+  - `POST /async/reports`
+  - `POST /async/notifications`
+  - `POST /async/imports`
+  - `GET /async/jobs`
+  - `GET /async/jobs/:id`
+
+### Recursos de observabilidade
+
+- Identificadores `x-request-id` e `x-trace-id` para correlação ponta a ponta.
+- Readiness check para repositório, cache e fila.
+- Métricas compatíveis com Prometheus.
+
+---
+
+## Qualidade e testes
+
+### Testes automatizados (raiz)
+
+```bash
+npm test
+```
+
+### Outros scripts úteis
+
+```bash
+npm run build
+npm run lint
+npm run dev:server
+npm run dev:client
+```
+
+---
+
+## Roadmap
+
+- Evoluir engine de personalização pedagógica por perfil de turma.
+- Expandir integrações acadêmicas (LMS e sistemas institucionais).
+- Consolidar trilha de analytics para gestão escolar.
+- Aprimorar fluxos offline e acessibilidade.
+
+---
+
+## Documentação complementar
+
+- Proposta do hackathon: [`docs/hackathon-proposta.md`](docs/hackathon-proposta.md)
+
+---
+
+## Licença
+
+Este projeto está sob a licença descrita em [`LICENSE`](LICENSE).

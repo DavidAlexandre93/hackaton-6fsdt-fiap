@@ -1,0 +1,10 @@
+{
+  "name": "Professor+",
+  "short_name": "Professor+",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070f22",
+  "theme_color": "#102150",
+  "description": "Gestão escolar inteligente com suporte offline para conteúdos leves.",
+  "lang": "pt-BR"
+}

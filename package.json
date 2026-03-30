@@ -1,0 +1,25 @@
+{
+  "name": "professor-plus",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w server & npm run dev -w client",
+    "start:backend": "npm run dev -w server",
+    "start:frontend": "npm run dev -w client",
+    "dev:server": "npm run dev -w server",
+    "dev:client": "npm run dev -w client",
+    "postgres:up": "docker compose up -d postgres",
+    "postgres:down": "docker compose stop postgres",
+    "postgres:logs": "docker compose logs -f postgres",
+    "redis:up": "docker compose up -d redis",
+    "redis:down": "docker compose stop redis",
+    "redis:logs": "docker compose logs -f redis",
+    "build": "npm run build -w client",
+    "lint": "npm run lint -w client",
+    "test": "NODE_ENV=test node --test --experimental-test-coverage \"server/test/**/*.test.js\" \"client/test/**/*.test.js\""
+  }
+}
