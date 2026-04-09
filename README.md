@@ -62,6 +62,7 @@ O projeto está organizado como monorepo (`npm workspaces`) com frontend React e
 - **Styled Components**
 - **Framer Motion**
 - Suporte a PWA (manifest + service worker)
+- Organização em **MVVM** no domínio de planejamento (`model`, `viewmodel` e `view` em `App.jsx`)
 
 ### Backend
 

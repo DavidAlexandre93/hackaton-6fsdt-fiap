@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateActivityForm, buildNextActivity, buildSummary } from '../src/app-state.js';
+import { buildActivityFromForm, buildSummary, validateActivityForm } from '../src/features/planner/model/activity-model.js';
 
 test('validateActivityForm returns missing required fields', () => {
   assert.deepEqual(
@@ -13,9 +13,8 @@ test('validateActivityForm returns missing required fields', () => {
   );
 });
 
-test('buildNextActivity trims values and increments id', () => {
-  const next = buildNextActivity(
-    [{ id: 3 }],
+test('buildActivityFromForm trims values and keeps provided id', () => {
+  const next = buildActivityFromForm(
     {
       title: ' A ',
       subject: ' B ',
@@ -23,7 +22,8 @@ test('buildNextActivity trims values and increments id', () => {
       classGroup: ' 8A ',
       dueDate: ' 2026-04-01 ',
       status: ' Em andamento '
-    }
+    },
+    4
   );
   assert.equal(next.id, 4);
   assert.equal(next.title, 'A');
@@ -31,15 +31,15 @@ test('buildNextActivity trims values and increments id', () => {
   assert.equal(next.status, 'Em andamento');
 });
 
-test('buildNextActivity starts IDs at one and applies default status', () => {
-  const next = buildNextActivity([], {
+test('buildActivityFromForm applies default status when empty', () => {
+  const next = buildActivityFromForm({
     title: 'Atividade',
     subject: 'Matemática',
     grade: '7º',
     classGroup: '7A',
     dueDate: '2026-04-01',
     status: ''
-  });
+  }, 1);
 
   assert.equal(next.id, 1);
   assert.equal(next.status, 'Planejada');
